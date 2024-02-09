@@ -1,0 +1,134 @@
+# Coffee Sales Analysis Project
+
+# Overview
+
+The objective of this project is to conduct a comprehensive business analysis of coffee sales utilizing data from three Excel tables: orders, customers, and products. Our approach involves importing these tables into a SQL database to facilitate data management and analysis. To achieve this, we'll first create a database in SQL and import each Excel table into separate SQL tables. Using SQL queries, we will then join the tables to generate a single consolidated table that captures relevant parameters such as sales performance, customer demographics, product profitability, and order frequency.Once we have our consolidated SQL table, we'll export the data back into Excel to create an interactive dashboard. This dashboard will serve as a powerful tool for exploring and visualizing the data, allowing us to answer various statistical questions and uncover insights into our coffee sales operation. The dashboard will feature dynamic charts, graphs, and pivot tables that provide real-time insights into sales trends, customer behavior, and product performance. Additionally, interactive filters and slicers will enable users to customize their analysis and drill down into specific subsets of data as needed.
+
+# Project Objectives
+
+The project objective is to conduct a comprehensive business analysis of coffee sales by leveraging data from three Excel tables: orders, customers, and products. This analysis aims to provide insights into sales performance, customer behavior, and product profitability to inform strategic decision-making and optimize the coffee sales operation. The project will involve importing the Excel tables into a SQL database, generating a single consolidated table that captures relevant parameters from the three tables, and creating an interactive dashboard in Excel. This dashboard will enable users to explore the data visually, answer various statistical questions, and uncover actionable insights to drive business growth and enhance customer satisfaction within the coffee sales business.
+
+# Dataset Information
+
+The project dataset comprises three Excel tables: orders, customers, and products. Each table contains specific information related to coffee sales, customers, and products, respectively.
+
+	1. Orders Table: This table includes columns such as OrderNo, OrderID, OrderDate, CustomerID, ProductID, and Quantity. It 	provides data on individual sales transactions, including the date of the order, the customer making the purchase, 	the product purchased, and the quantity ordered.
+
+	2. Customers Table: The customers table contains columns such as Customer ID, Customer Name, Email, Phone Number, 	Address Line 1, City, Country, Postcode, and Loyalty Card. It provides information about the customers who have made 	purchases, including their contact details, location, and loyalty card status.
+
+	3. Products Table: This table includes columns such as Product ID, Coffee Type, Roast Type, Size, Unit Price, Price 	per 100g, and Profit. It contains data on the various coffee products available for sale, including details such as 	coffee type, roast type, size options, pricing, and profitability metrics.
+
+When creating the SQL DB (Coffee_Sales) tables we will use the following table definitions for orders, customers and products tables.
+
+#Orders Table
+
+# Column	      Description	            	 		 Data Type
+OrderNo:     Unique identifies for each order made		VARCHAR (10) Primary Key
+OrderID: 	Identifier for each order.			 		VARCHAR (30) 
+OrderDate: 	Date when the order was placed.				DATE
+CustomerID: 	Identifier for the customer who placed the order. 	VARCHAR (30)
+ProductID: 	Identifier for the product ordered.			VARCHAR(30)
+Quantity: 	The quantity of the product ordered 			INT
+# We introduced a new column (OrderNo) to serve as the tables Primary Key column. All the other columns could not meet the standards needed for PK column. For instance, OrderID had duplicate values that were not errors considering a single order could encompass multiple products.
+
+#Customers Table
+
+# Column	      Description	              			Data Type
+CustomerID: 	Unique identifier for each customer.			VARCHAR(30) (Primary Key)
+CustomerName: 	Name of the customer.					VARCHAR(255)
+Email: 		Email address of the customer.				VARCHAR(255)
+PhoneNumber: 	Phone number of the customer.				VARCHAR(20)
+AddressLine1: 	First line of the customer's address.			VARCHAR(255)
+City: 		City where the customer is located.			VARCHAR(100)
+Country: 	Country where the customer is located. 			VARCHAR(100)
+Postcode: 	Postal code of the customer's address.			VARCHAR(100)
+LoyaltyCard: 	Indicates whether the customer has a loyalty card.	VARCHAR(10)
+
+
+#Products Table
+
+# Column	      Description	              			Data Type
+ProductID: 	Unique identifier for each product.			VARCHAR(10) (Primary Key)
+CoffeeType: 	Type or variety of coffee.				VARCHAR(10)
+RoastType: 	Level of roasting for the coffee.			VARCHAR (5)
+Size: 		Size or quantity option for the product.		DECIMAL (10, 2)
+UnitPrice: 	Price per unit of the product.				FLOAT (10, 4)
+PricePer100g: 	Price per 100 grams of the product.			FLOAT(10, 4)
+Profit: 	Profit margin for the product				FLOAT(10, 5)
+
+
+# Analysis Focus Areas
+
+Sales Performance Analysis
+Evaluate overall sales performance by analyzing metrics such as total revenue, sales trends over time, and sales distribution by product type, customer segment, and geographical location.
+
+Customer Behavior Analysis
+Explore customer purchasing behavior, including frequency of orders, average order value, and customer retention rates. Identify loyal customers, understand their preferences, and assess the effectiveness of loyalty programs in driving repeat purchases.
+
+Product Performance Analysis
+Assess the performance of individual coffee products by analyzing metrics such as sales volume, revenue generated, and profitability. Identify top-selling products, analyze product pricing strategies, and explore opportunities for product diversification or optimization.
+
+Geographical Analysis
+Investigate sales patterns and trends across different regions or geographical areas. Identify regions with high sales potential, assess market penetration strategies, and tailor marketing campaigns to local preferences and demographics.
+
+Marketing Effectiveness Analysis
+Evaluate the effectiveness of marketing campaigns and promotions in driving sales and customer engagement. Analyze metrics such as conversion rates, customer acquisition cost, and return on investment (ROI) to optimize marketing strategies and allocate resources effectively.
+
+
+Customer Segmentation Analysis
+Segment customers based on demographic characteristics, purchasing behavior, and loyalty status. Analyze sales patterns and preferences among different customer segments to tailor marketing strategies and product offerings to specific target audiences.
+
+
+# Methodology
+
+# MySQL-Based Feature Engineering
+
+Database Setup
+Subsequently, we create a SQL database (coffee_sales) and define tables corresponding to the three datasets: orders, customers, and products. Each table is carefully designed with appropriate column names, descriptions, and data types to accurately represent the data and facilitate efficient querying and analysis.For crucial column parameters we designed them to avoid null elements hence eliminating rows that had null parameters on important parameters such as geographic locdations and Dates.
+
+Data Import and Transformation
+The cleaned and prepared data from the Excel tables is imported into the respective SQL tables using appropriate import tools. During this process, the three worksheets were seperated into individual CSV files to ensurer data transformation and compatibility with the SQL database schema and optimize data storage. Therefore, the importation process impacted three CSV files (Orders.csv, Customers.csv and Products.csv)
+
+SQL Querying and Analysis
+With the data successfully imported into the SQL database, we leverage SQL querying techniques to perform various analyses and extract insights from the data. This involves writing SQL queries to join tables, aggregate data, calculate metrics, and generate reports that address specific analysis focus areas such as sales performance, customer behavior, and product profitability.
+
+# Excel-Based Feature Engineering
+After exporting the joined table from SQL to Excel, various feature engineering measures are done to make the data more understandable. For instance, some columns will be irrelevant to the analysis process and thus are liable for dropping. Examples of dropped columns; CustomerID, AddressLine, OrderNo, Postcode, OrderID
+
+We also redid some columns to ensure the presented data were understandable. For example. the CoffeeType and RoastType column had shortened name formats that we needed to rewrite in their complete forms. So next to the targeted columns we introduced new columns and used appropriate (=IFS) formula to complete the task.
+
+Formatting of the Date Columns to ensure data was presented in manner that can be understood by everyone irrespective of 
+
+Dashboard Creation
+Once the analysis is complete, we export the summarized and aggregated data from SQL into Excel to create an interactive dashboard. The dashboard includes dynamic charts, graphs, and pivot tables that visualize key metrics and enable users to explore the data interactively. Interactive filters and slicers are incorporated to facilitate customized analysis and drill-down capabilities.
+
+
+# Business Questions
+
+# Generic Questions
+1. What are the overall sales trends for the coffee business over the past year?
+2. How does the coffee sales performance vary across different geographical regions?
+3. What are the peak sales periods throughout the year, and how can we capitalize on them?
+4. What is the average order value for coffee purchases, and how has it changed over time?
+5. How does the profitability of the coffee business compare to industry benchmarks?
+
+# Product-Related Questions
+1. Which coffee types have the highest sales volume and revenue?
+2. What is the profitability of each coffee product, and how does it vary by size and roast type?
+3. Are there any seasonal variations in the sales of specific coffee products?
+4. Which coffee products have the highest customer satisfaction ratings or reviews?
+5. How do pricing strategies impact the sales performance of different coffee products?
+
+# Sales-Related Questions
+1. What is the distribution of sales across different channels Roasttype?
+2. Are there any trends or patterns in customer purchasing behavior, such as upselling or cross-selling opportunities?
+3. How do external factors such as seasonality, weather, or economic conditions affect coffee sales?
+
+# Customer-Related Questions
+1. Who are the most valuable customers in terms of lifetime value or repeat purchase frequency?
+2. What are the demographic characteristics of our customer base, and how do they influence purchasing behavior?
+3. How effective are loyalty programs in retaining customers and driving repeat purchases?
+4. Are there any trends or preferences in customer purchasing behavior based on factors such as location?
+5. How can we personalize marketing efforts to better target specific customer segments and increase customer engagement?
+
+# With the generated Dashboard in Excel, all the questions above can be answered to make better business decisions.
